@@ -1,0 +1,41 @@
+Package: elicitator
+Title: An expert elicitation WEB app
+Version: 0.0.0.9001
+Authors@R: 
+    c(person(given = "Danila",
+             family = "Azzolina",
+             role = "aut",
+             email = "danila.azzolina@unipd.it"),
+      person(given = "Corrado",
+             family = "Lanera",
+             role = c("aut", "cre"),
+             email = "corrado.lanera@unipd.it"),
+      person(given = "Paola",
+             family = "Berchialla",
+             role = "aut",
+             email = "paola.berchialla@unito.it"),
+      person(given = "Marco",
+             family = "Ghidina",
+             role = "aut",
+             email = "marco.ghidina@zetaresearch.com"),
+      person(given = "Dario",
+             family = "Gregori",
+             role = "aut",
+             email = "dario.gregori@unipd.it"))
+Description: The goal of **elicitator** is to define an expert
+    elicitation WEB app to answer with regard to _Case Study 2_ of EFSA's
+    OC/EFSA/AMU/2019/02.
+License: GPL-3
+Depends: 
+    R (>= 3.2)
+Imports: 
+    magrittr
+Suggests: 
+    covr,
+    spelling,
+    testthat (>= 2.1.0)
+Encoding: UTF-8
+Language: en-US
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.0.2
