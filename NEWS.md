@@ -1,5 +1,6 @@
 # elicitator (development version)
 
+* Fix `.travis.yml` (typos in spaces)
 * Added logo
 * Update `.Rbuildignore`
 
