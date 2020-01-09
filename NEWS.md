@@ -1,5 +1,8 @@
 # elicitator (development version)
 
+* Added logo
+* Update `.Rbuildignore`
+
 * Added basic development support:
 
   - git + GitHub +

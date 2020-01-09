@@ -1,3 +1,6 @@
+^elicitator\.Rproj$
+^\.Rproj\.user$
+^README\.Rmd$
 ^\.github$
 ^LICENSE\.md$
 ^appveyor\.yml$

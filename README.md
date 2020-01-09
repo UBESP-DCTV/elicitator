@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# elicitator
+# elicitator <img src='man/figures/logo.PNG' align="right" height="108.5" />
 
 <!-- badges: start -->
 
