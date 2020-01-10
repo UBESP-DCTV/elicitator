@@ -1,6 +1,6 @@
 Package: elicitator
 Title: An expert elicitation WEB app
-Version: 0.0.0.9001
+Version: 0.1.0
 Authors@R: 
     c(person(given = "Danila",
              family = "Azzolina",
@@ -29,7 +29,13 @@ License: GPL-3
 Depends: 
     R (>= 3.2)
 Imports: 
-    magrittr
+    magrittr,
+    RMySQL,
+    DBI,
+    dbplyr,
+    dplyr,
+    tibble,
+    assertive
 Suggests: 
     covr,
     spelling,

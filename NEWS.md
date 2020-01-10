@@ -1,3 +1,17 @@
+# elicitator 0.1.0
+
+* Update UI to show Admin tab if pertinent.
+* Defined `retrieve_opinions` to retrieve all the last elicitated
+  values each expert. The function can be executed buy admiin only.
+* Move testing computation inside tests to permit to skip them
+* reshaping the app in multiple files
+* Save/restore session implemented 
+* Defined `last_stored_vals` to retrieve the last(s) expert elicitated
+  values
+* Defined `store_expert_vals()` to store the expert elicitated values
+* Defined `get_usr()` to extract information from the user providing
+  their credentials.
+
 # elicitator (development version)
 
 * Fix `.travis.yml` (typos in spaces)
