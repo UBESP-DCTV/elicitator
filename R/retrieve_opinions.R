@@ -54,13 +54,23 @@ retrieve_opinions <- function(usr, psw) {
 
     on.exit(DBI::dbDisconnect(con), add = TRUE)
 
-    dplyr::tbl(con, "opinions") %>%
-        dplyr::collect() %>%
-        dplyr::group_by(users_id) %>%
-        dplyr::filter(id_opinions == max(id_opinions)) %>%
-        dplyr::left_join(
-            dplyr::collect(dplyr::tbl(con, "users")),
-            by = c("users_id" = "id_users")
-        ) %>%
-        dplyr::select(-"password")
+    sql_query <- dbplyr::build_sql(
+        "SELECT * ",
+        "FROM opinions ",
+        "LEFT JOIN users ON id_users = users_id ",
+        "WHERE id_opinions in(",
+            "SELECT MAX(id_opinions) ",
+            "FROM opinions ",
+            "GROUP BY users_id",
+        ")",
+        con = con
+    )
+
+    res <- DBI::dbSendQuery(con, sql_query)
+    on.exit(DBI::dbClearResult(res), add = TRUE, after = FALSE)
+
+    DBI::dbFetch(res) %>%
+        dplyr::select(-"password") %>%
+        tibble::as_tibble()
+
 }
