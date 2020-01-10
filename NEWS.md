@@ -1,3 +1,5 @@
+* Defined `last_stored_vals` to retrieve the last(s) expert elicitated
+  values
 * Defined `store_expert_vals()` to store the expert elicitated values
 * Defined `get_usr()` to extract information from the user providing
   their credentials.

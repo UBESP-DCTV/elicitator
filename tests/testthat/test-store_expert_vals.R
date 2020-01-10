@@ -6,22 +6,12 @@ test_that("store_expert_vals return the correct class", {
     skip_on_ci()
     skip_on_cran()
 
-    expect_is(store_expert_vals(usr, psw, vals), "logical")
+    sev <- store_expert_vals(usr, psw, vals)
+
+    expect_is(sev, "logical")
+    expect_is(attr(sev, "time"), "POSIXct")
+    expect_length(attr(sev, "time"), 1)
 })
-
-
-# test_that("get_usr works properly", {
-#     skip_on_ci()
-#     skip_on_cran()
-#
-#     expect_equal(cl[["name"]], "Corrado")
-#     expect_equal(cl[["role"]], 1)
-#
-#     expect_equal(none[["name"]], character(0))
-#
-#     expect_equal(dg[["name"]], "Dario")
-#     expect_equal(dg[["role"]], 2)
-# })
 
 
 test_that("store_expert_vals manage wrong input", {

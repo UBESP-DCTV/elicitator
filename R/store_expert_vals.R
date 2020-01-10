@@ -30,17 +30,17 @@
 #' }
 store_expert_vals <- function(usr, psw, vals) {
 
+    now <- Sys.time()
+
     assertive::assert_is_numeric(vals)
     assertive::assert_is_of_length(vals, 5)
+    vals_c <- as.character(vals)
+
 
     usr_id <- get_usr(usr, psw)[["id_users"]] %>%
         as.character()
-
     if (!length(usr_id)) stop("Incorrect username or password!")
 
-    now <- Sys.time() %>%
-        as.character() %>%
-        paste0("'", ., "'")
 
     con <- DBI::dbConnect(RMySQL::MySQL(),
         host = "127.0.0.1",
@@ -52,9 +52,8 @@ store_expert_vals <- function(usr, psw, vals) {
 
     on.exit(DBI::dbDisconnect(con), add = TRUE)
 
-    key <- Sys.getenv('TBL_KEY')
+    now_c <- paste0("'", as.character(now), "'")
 
-    vals_c <- as.character(vals)
     sql_query <- dbplyr::build_sql(
         "INSERT ",
         "INTO opinions (",
@@ -62,13 +61,17 @@ store_expert_vals <- function(usr, psw, vals) {
             "perc1, perc25, perc50, perc75, perc99",
         ") VALUES(",
             dbplyr::ident_q(as.character(usr_id)), ", ",
-            dbplyr::ident_q(now), ", ",
+            dbplyr::ident_q(now_c), ", ",
             dbplyr::ident_q(vals_c),
         ");",
         con = con
     )
-    sql_query
+
+
     res <- DBI::dbSendQuery(con, sql_query)
     on.exit(DBI::dbClearResult(res), add = TRUE, after = FALSE)
-    invisible(TRUE)
+
+    out <- TRUE
+    attr(out, "time") <- now
+    invisible(out)
 }
