@@ -1,3 +1,5 @@
+* reshaping the app in multiple files
+* Save/restore session implemented 
 * Defined `last_stored_vals` to retrieve the last(s) expert elicitated
   values
 * Defined `store_expert_vals()` to store the expert elicitated values
