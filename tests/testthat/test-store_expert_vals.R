@@ -15,6 +15,9 @@ test_that("store_expert_vals return the correct class", {
 
 
 test_that("store_expert_vals manage wrong input", {
+    skip_on_ci()
+    skip_on_cran()
+
     expect_error(
         store_expert_vals(1, psw, vals),
         "usr is not of class 'character'"
@@ -34,9 +37,6 @@ test_that("store_expert_vals manage wrong input", {
         store_expert_vals(usr, psw, 1:4),
         "vals has length 4, not 5"
     )
-
-    skip_on_ci()
-    skip_on_cran()
 
     expect_error(
         store_expert_vals("user_foo", psw, vals),
