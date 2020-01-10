@@ -35,6 +35,9 @@ test_that("store_expert_vals manage wrong input", {
         "vals has length 4, not 5"
     )
 
+    skip_on_ci()
+    skip_on_cran()
+
     expect_error(
         store_expert_vals("user_foo", psw, vals),
         "Incorrect username or password!"
