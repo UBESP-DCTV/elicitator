@@ -10,9 +10,6 @@ matrix:
     before_install:
      - sudo apt-get install libgsl0-dev libxml2-dev openjdk-7-*
 
-  - r: devel
-    os: osx
-
   - r: release
     os: osx
 

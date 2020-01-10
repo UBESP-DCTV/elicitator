@@ -37,7 +37,7 @@ test_that("get_usr do not return password", {
 })
 
 
-test_that("get_usr manage wrong inpute", {
+test_that("get_usr manage wrong input", {
     expect_error(
         get_usr(1, psw),
         "usr is not of class 'character'"

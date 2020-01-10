@@ -25,6 +25,7 @@
 #'   - `lastname`: the user's surname
 #'   - `role`: the user's role group (1 = expert elicitator, 2 = admin)
 #'
+#' @export
 #' @examples
 #' \dontrun{
 #'     # On r-ubesp server
