@@ -1,12 +1,12 @@
 psw <- Sys.getenv("USR_PSW")
 
-cl <- get_usr("user_a", psw)
-none <- get_usr("user", psw)
-dg <- get_usr("admin", psw)
-
 test_that("get_usr return the correct class", {
     skip_on_ci()
     skip_on_cran()
+
+    cl <- get_usr("user_a", psw)
+    none <- get_usr("user", psw)
+    dg <- get_usr("admin", psw)
 
     expect_is(cl, "tbl_df")
     expect_is(none, "tbl_df")
@@ -17,6 +17,10 @@ test_that("get_usr return the correct class", {
 test_that("get_usr works properly", {
     skip_on_ci()
     skip_on_cran()
+
+    cl <- get_usr("user_a", psw)
+    none <- get_usr("user", psw)
+    dg <- get_usr("admin", psw)
 
     expect_equal(cl[["name"]], "Corrado")
     expect_equal(cl[["role"]], 1)
@@ -30,6 +34,10 @@ test_that("get_usr works properly", {
 test_that("get_usr do not return password", {
     skip_on_ci()
     skip_on_cran()
+
+    cl <- get_usr("user_a", psw)
+    none <- get_usr("user", psw)
+    dg <- get_usr("admin", psw)
 
     expect_equal(cl[["password"]], NULL)
     expect_equal(none[["password"]], NULL)

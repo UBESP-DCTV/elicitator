@@ -1,3 +1,4 @@
+* Move testing computation inside tests to permit to skip them
 * reshaping the app in multiple files
 * Save/restore session implemented 
 * Defined `last_stored_vals` to retrieve the last(s) expert elicitated
