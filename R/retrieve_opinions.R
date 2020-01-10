@@ -1,7 +1,7 @@
-#' Read last expert elicitated stored values
+#' Read all the experts elicitated stored values
 #'
-#' Read the last stored elicitated values on the **opinions** table of
-#' the **elicitator** MySQL database stored on the server.
+#' Read all the last stored elicitated values on the **opinions** table
+#' of the **elicitator** MySQL database stored on the server.
 #'
 #' @note to access the database the following environmental variable must
 #' be set-up:
@@ -32,17 +32,17 @@
 #'     # On r-ubesp server
 #'     psw <- Sys.getenv("USR_PSW")
 #'
-#'     last_stored_vals("user_a", psw)
+#'     retrieve_opinion("user_a", psw)
 #' }
-last_stored_vals <- function(usr, psw) {
+retrieve_opinions <- function(usr, psw) {
 
     assertive::assert_is_a_string(usr)
     assertive::assert_is_a_string(psw)
 
-    usr_id <- get_usr(usr, psw)[["id_users"]] %>%
-        as.character()
+    usr_role <- get_usr(usr, psw)[["role"]]
 
-    if (!length(usr_id)) stop("Incorrect username or password!")
+    if (!length(usr_role)) stop("Incorrect username or password!")
+    if (usr_role != 2) stop("Only admins can use this function, sorry.")
 
     con <- DBI::dbConnect(RMySQL::MySQL(),
         host = "127.0.0.1",
@@ -54,16 +54,13 @@ last_stored_vals <- function(usr, psw) {
 
     on.exit(DBI::dbDisconnect(con), add = TRUE)
 
-    sql_query <- dbplyr::build_sql(
-        "SELECT * ",
-        "FROM opinions ",
-        "WHERE users_id = '", dbplyr::ident_q(usr_id), "'",
-        con = con
-    )
-
-    res <- DBI::dbSendQuery(con, sql_query)
-    on.exit(DBI::dbClearResult(res), add = TRUE, after = FALSE)
-
-     DBI::dbFetch(res) %>%
-        tibble::as_tibble()
+    dplyr::tbl(con, "opinions") %>%
+        dplyr::collect() %>%
+        dplyr::group_by(users_id) %>%
+        dplyr::filter(id_opinions == max(id_opinions)) %>%
+        dplyr::left_join(
+            dplyr::collect(dplyr::tbl(con, "users")),
+            by = c("users_id" = "id_users")
+        ) %>%
+        dplyr::select(-"password")
 }

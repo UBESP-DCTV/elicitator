@@ -3,6 +3,7 @@
 export("%>%")
 export(get_usr)
 export(last_stored_vals)
+export(retrieve_opinions)
 export(store_expert_vals)
 importFrom(magrittr,"%>%")
 importFrom(tibble,tibble)

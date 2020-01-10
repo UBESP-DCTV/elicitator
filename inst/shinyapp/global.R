@@ -2,8 +2,9 @@ library(shiny)
 library(shinyjs)
 library(shinydashboard)
 
+library(elicitator)
+
 library(DT)
-# library(sodium)
 library(SHELF)
 
 

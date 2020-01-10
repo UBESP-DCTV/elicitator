@@ -73,6 +73,13 @@ server <- function(input, output, session) {
         )
     )
 
+    tab_page <- tabItem(tabName = "admin_dashboard",
+        column(width = 12,
+            renderText("Data collected"),
+            dataTableOutput("opinions")
+        )
+    )
+
     help_page <- tabItem(tabName = "widgets",
         h2("Expert elicitation"),
         h4("Eliciting a probability distribution is the process of extracting an expert’s beliefs about some unknown quantity of interest,
@@ -91,30 +98,29 @@ server <- function(input, output, session) {
     )
 
 
-    usr  <- reactiveValues(login = FALSE)
+    usr  <- reactiveValues(
+        login = FALSE,
+        type = "user"
+    )
 
     observe({
         req(!usr$login) # Not yet logged in
         req(input$login) # clicked sign in
 
         usr_info  <- isolate(get_usr(input$usr, input$psw))
-        usr_role <- usr_info[["role"]]
+        usr_role  <- usr_info[["role"]]
+        if (usr_role == 2) {
+          usr$type <- "admin"
+        }
 
         # Wrong log in credentials
-        if (!nrow(usr_info)) no_match()
-
-        # Logged in like an elicitator expert
-        if (usr_role == 1) {
+        if (!nrow(usr_info)) {
+            no_match()
+        } else {
             usr$login <- TRUE
             observe(
                 updateTabItems(session, "tabs", selected = "dashboard")
             )
-        }
-
-        if (usr_role == 2) {
-            # Logged in like an admin
-            usr$login <- TRUE
-            #  < PUT CODE HERE >
         }
     })
 
@@ -161,7 +167,7 @@ server <- function(input, output, session) {
 
     output$savesession <- renderUI({
         req(usr$login)
-        actionButton("save", label = "Save session")
+        actionButton("save", label = "Save/Submit")
 
     })
 
@@ -187,6 +193,12 @@ server <- function(input, output, session) {
                     tabName = "dashboard",
                     icon = icon("dashboard")
                 ),
+                if (usr$type == "admin") {
+                  menuItem("Admin dashboard",
+                      tabName = "admin_dashboard",
+                      icon = icon("dashboard")
+                  )
+                },
                 menuItem("Help?",
                     tabName = "widgets",
                     icon = icon("dashboard")
@@ -264,10 +276,12 @@ server <- function(input, output, session) {
 
     output$body <- renderUI({
 
-      if (usr$login) {
+      if (usr$login && (usr$type == "user")) {
           dashboardBody(tabItems(plot_page, help_page))
+      } else if (usr$login && (usr$type == "admin")) {
+          dashboardBody(tabItems(plot_page, tab_page, help_page))
       } else if (!usr$login) {
-        login_page
+          login_page
       }
 
     })
@@ -311,6 +325,11 @@ server <- function(input, output, session) {
       )
       SHELF::plotfit(fit, d = "best", ql = 0.05, qu = 0.95, ex = 2)
     })
+
+
+    output$opinions <- DT::renderDT(
+      retrieve_opinions(input$usr, input$psw)
+    )
 
 
 }

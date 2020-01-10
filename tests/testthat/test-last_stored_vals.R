@@ -19,6 +19,10 @@ test_that("last_stored_vals manage wrong input", {
         "psw is not of class 'character'"
     )
 
+
+    skip_on_ci()
+    skip_on_cran()
+
     expect_error(
         last_stored_vals("user_foo", psw),
         "Incorrect username or password!"
