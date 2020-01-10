@@ -1,60 +1,107 @@
+library(dplyr)
+
 library(shiny)
-library(shinydashboard)
-library(DT)
 library(shinyjs)
+library(shinydashboard)
+
+library(DT)
 library(sodium)
 library(SHELF)
 
 # Main login screen
-loginpage <- div(id = "loginpage", style = "width: 500px; max-width: 100%; margin: 0 auto; padding: 20px;",
-                 wellPanel(
-                   tags$h2("LOG IN", class = "text-center", style = "padding-top: 0;color:#333; font-weight:600;"),
-                   textInput("userName", placeholder="Username", label = tagList(icon("user"), "Username")),
-                   passwordInput("passwd", placeholder="Password", label = tagList(icon("unlock-alt"), "Password")),
-                   br(),
-                   div(
-                     style = "text-align: center;",
-                     actionButton("login", "SIGN IN", style = "color: white; background-color:#3c8dbc;
-                                  padding: 10px 15px; width: 150px; cursor: pointer;
-                                  font-size: 18px; font-weight: 600;"),
-                     shinyjs::hidden(
-                       div(id = "nomatch",
-                           tags$p("Incorrect username or password!",
-                                  style = "color: red; font-weight: 600;
-                                  padding-top: 5px;font-size:16px;",
-                                  class = "text-center"))),
-                     br(),
-                     br()
-
-                     ))
-                     )
-
-credentials <- data.frame(
-    username_id = c("local", "local1"),
-    passod   = sapply(c("mypass", "mypass1"),password_store),
-    permission  = c("basic", "advanced"),
-    stringsAsFactors = FALSE
+loginpage <- div(
+    id    = "loginpage",
+    style = "
+        width: 500px;
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 20px;
+    ",
+    wellPanel(
+        tags$h2("LOG IN",
+          class = "text-center",
+          style = "
+              padding-top: 0;
+              color:#333;
+              font-weight:600;
+          "
+        ),
+        textInput("usr",
+          placeholder = "Username",
+          label = tagList(icon("user"), "Username")
+        ),
+        passwordInput("psw",
+          placeholder = "Password",
+          label = tagList(icon("unlock-alt"), "Password")
+        ),
+        br(),
+        div(
+            style = "text-align: center;",
+            actionButton("login",
+                label = "SIGN IN",
+                style = "
+                    color: white;
+                    background-color:#3c8dbc;
+                    padding: 10px 15px;
+                    width: 150px;
+                    cursor: pointer;
+                    font-size: 18px;
+                    font-weight: 600;
+                "
+            ),
+            hidden(div(
+                id = "nomatch",
+                style = "
+                    color: red;
+                    font-weight: 600;
+                    padding-top: 5px;
+                    font-size:16px;
+                ",
+                tags$p("Incorrect username or password!",
+                    class = "text-center"
+                )
+            )),
+            br(),
+            br()
+        )
+    )
 )
 
-header <- dashboardHeader( title = "ElicitatoR", uiOutput("logoutbtn"))
 
+# users <- data.frame(
+#     username = c("local", "local1"),
+#     passod   = sapply(c("mypass", "mypass1"),password_store),
+#     permission  = c("basic", "advanced"),
+#     stringsAsFactors = FALSE
+# )
+
+header  <- dashboardHeader(title = "ElicitatoR", uiOutput("logoutbtn"))
 sidebar <- dashboardSidebar(uiOutput("sidebarpanel"))
-body <- dashboardBody(shinyjs::useShinyjs(), uiOutput("body"))
-ui<-dashboardPage(header, sidebar, body, skin = "red")
+body    <- dashboardBody(shinyjs::useShinyjs(), uiOutput("body"))
+ui      <- dashboardPage(header, sidebar, body, skin = "red")
+
+
+
+
+# Server ----------------------------------------------------------
 
 server <- function(input, output, session) {
 
-  login = FALSE
+
+  login <- FALSE
   USER <- reactiveValues(login = login)
 
+
+
+
   observe({
-    if (USER$login == FALSE) {
+    if (!USER$login) {
       if (!is.null(input$login)) {
         if (input$login > 0) {
-          Username <- isolate(input$userName)
-          Password <- isolate(input$passwd)
-          if(length(which(credentials$username_id==Username))==1) {
-            pasmatch  <- credentials["passod"][which(credentials$username_id==Username),]
+          Username <- isolate(input$usr)
+          Password <- isolate(input$psw)
+          if(length(which(users$username==Username))==1) {
+            pasmatch  <- users["passod"][which(users$username==Username),]
             pasverify <- password_verify(pasmatch, Password)
             if(pasverify) {
               USER$login <- TRUE

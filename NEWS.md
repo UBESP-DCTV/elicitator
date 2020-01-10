@@ -1,3 +1,6 @@
+* Defined `get_usr()` to extract information from the user providing
+  their credentials.
+
 # elicitator (development version)
 
 * Fix `.travis.yml` (typos in spaces)

@@ -29,7 +29,13 @@ License: GPL-3
 Depends: 
     R (>= 3.2)
 Imports: 
-    magrittr
+    magrittr,
+    RMySQL,
+    DBI,
+    dbplyr,
+    dplyr,
+    tibble,
+    assertive
 Suggests: 
     covr,
     spelling,

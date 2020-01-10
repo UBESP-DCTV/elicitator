@@ -6,6 +6,8 @@
 \alias{elicitator-package}
 \title{elicitator: An expert elicitation WEB app}
 \description{
+\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+
 The goal of **elicitator** is to define an expert
     elicitation WEB app to answer with regard to _Case Study 2_ of EFSA's
     OC/EFSA/AMU/2019/02.
