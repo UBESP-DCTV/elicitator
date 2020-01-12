@@ -71,6 +71,7 @@ retrieve_opinions <- function(usr, psw) {
 
     DBI::dbFetch(res) %>%
         dplyr::select(-"password") %>%
-        tibble::as_tibble()
+        tibble::as_tibble() %>%
+        dplyr::ungroup()
 
 }

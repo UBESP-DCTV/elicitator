@@ -1,3 +1,4 @@
+* Bugfix: `dplyr::ungroup()`ed output from `retreived =_options()`
 * Changed SQL query in `retrieve_opinons()` to a full direct SQL call
   to reduce computational and data loading.
 

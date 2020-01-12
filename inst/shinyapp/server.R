@@ -81,7 +81,7 @@ server <- function(input, output, session) {
         column(width = 12,
             renderText("Experts pooling density"),
             plotOutput("plot3"),
-            downloadButton("report", "Generate elicitation report")
+            downloadButton("download_pooled")
         )
     )
 
@@ -332,48 +332,29 @@ server <- function(input, output, session) {
         retrieve_opinions(input$usr, input$psw)
     )
 
-    output$plot3 <- renderPlot({
+    pooled_plot <- function() {
+        opinion.db <- retrieve_opinions(input$usr, input$psw) %>%
+            dplyr::select("perc1":"perc99") %>%
+            t()
 
-        opinion.db <- retrieve_opinions(input$usr, input$psw)
-        opinion.db <- as.matrix(t(
-            opinion.db[, c(
-                "perc1", "perc25", "perc50", "perc75", "perc99"
-            )]
-        ))
-
-        poolfit <- SHELF::fitdist(
-            vals = opinion.db, probs,
-            lower = ifelse(input$Cond != 'yes', -Inf, input$lower),
-            upper = ifelse(input$Cond != 'yes', Inf, input$upper)
+        poolfit <- SHELF::fitdist(opinion.db,
+            probs = probs,
+            lower = ifelse(is.null(input$lower), -Inf, input$lower),
+            upper = ifelse(is.null(input$upper), Inf, input$upper)
         )
 
         SHELF::plotfit(poolfit,
-            d = "best", ql = 0.05, qu = 0.95,lp = TRUE
+            d = "best", ql = 0.05, qu = 0.95, lp = TRUE
         )
-    })
+    }
 
 
+    output$plot3 <- renderPlot(pooled_plot())
 
-    output$report <- downloadHandler(
-
-        filename = "report.html",
+    output$download_pooled <- downloadHandler(
+        filename = "elicitator-pooled.png",
         content = function(file) {
-
-            # Copy the report file to a temporary directory before
-            # processing it
-            #
-            tempReport <- file.path(tempdir(), "report.Rmd")
-
-            file.copy("report.Rmd", tempReport, overwrite = TRUE)
-
-            # Set up parameters to pass to Rmd document
-            params <- poolfit
-
-            rmarkdown::render(tempReport,
-                output_file = file,
-                params = params,
-                envir = new.env(parent = globalenv())
-            )
+            ggplot2::ggsave(file, plot = pooled_plot(), device = "png")
         }
     )
 
