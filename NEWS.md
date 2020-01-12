@@ -1,3 +1,5 @@
+* Fixed button order (by row instead of by column)
+* Added pooled plot
 * Changed SQL query in `retrieve_opinons()` to a full direct SQL call
   to reduce computational and data loading.
 
