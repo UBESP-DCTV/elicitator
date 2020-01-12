@@ -19,4 +19,6 @@ test_that("retrieval works", {
         tbl[tbl$users_id == 5, ][["name"]],
         "Dario"
     )
+
+    expect_identical(tbl, dplyr::ungroup(tbl))
 })

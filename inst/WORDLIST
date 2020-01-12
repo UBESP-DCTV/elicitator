@@ -1,6 +1,7 @@
 AMU
 appVeyor
 AppVeyor
+Bugfix
 chr
 codecov
 Codecov
@@ -15,3 +16,4 @@ roxygen
 testthat
 th
 tibble
+UI

@@ -1,8 +1,18 @@
+* Added download for the pooled plot
+* Bugfix: `dplyr::ungroup()`ed output from `retreived =_options()`
+
+# elicitator 0.1.1
+
+* Fixed button order (by row instead of by column)
+* Added pooled plot
+* Changed SQL query in `retrieve_opinons()` to a full direct SQL call
+  to reduce computational and data loading.
+
 # elicitator 0.1.0
 
 * Update UI to show Admin tab if pertinent.
 * Defined `retrieve_opinions` to retrieve all the last elicitated
-  values each expert. The function can be executed buy admiin only.
+  values each expert. The function can be executed buy admin only.
 * Move testing computation inside tests to permit to skip them
 * reshaping the app in multiple files
 * Save/restore session implemented 
