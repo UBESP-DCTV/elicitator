@@ -1,4 +1,4 @@
-header  <- dashboardHeader(title = "ElicitatoR", uiOutput("savesession"), uiOutput("logoutbtn"))
+header  <- dashboardHeader(title = "ElicitatoR", uiOutput("savesubmit"))
 sidebar <- dashboardSidebar(uiOutput("sidebarpanel"))
 body    <- dashboardBody(shinyjs::useShinyjs(), uiOutput("body"))
 
