@@ -34,6 +34,9 @@ store_expert_vals <- function(usr, psw, vals) {
 
     assertive::assert_is_numeric(vals)
     assertive::assert_is_of_length(vals, 5)
+    assertive::assert_all_are_positive(
+        vals[-1] - vals[-length(vals)]
+    )
     vals_c <- as.character(vals)
 
 
