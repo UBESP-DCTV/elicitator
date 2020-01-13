@@ -41,7 +41,8 @@ Imports:
 Suggests: 
     covr,
     spelling,
-    testthat (>= 2.1.0)
+    testthat (>= 2.1.0),
+    RSelenium
 Encoding: UTF-8
 Language: en-US
 LazyData: true

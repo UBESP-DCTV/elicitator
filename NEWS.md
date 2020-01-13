@@ -1,3 +1,4 @@
+* Added support for *RSelenium*`
 * Added download for the pooled plot
 * Bugfix: `dplyr::ungroup()`ed output from `retreived =_options()`
 
