@@ -10,9 +10,8 @@ maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www
 [![AppVeyor build
 status](https://ci.appveyor.com/api/projects/status/github/UBESP-DCTV/elicitator?branch=master&svg=true)](https://ci.appveyor.com/project/UBESP-DCTV/elicitator)
 [![Travis build
-status](https://travis-ci.com/UBESP-DCTV/elicitator.svg?branch=master)](https://travis-ci.com/UBESP-DCTV/elicitator)
-[![Codecov test
-coverage](https://codecov.io/gh/UBESP-DCTV/elicitator/branch/master/graph/badge.svg)](https://codecov.io/gh/UBESP-DCTV/elicitator?branch=master)
+status](https://travis-ci.com/UBESP-DCTV/elicitator.svg?token=LB47B8iKQhmYmrAuxwVQ&branch=master)](https://travis-ci.com/UBESP-DCTV/elicitator)
+[![codecov](https://codecov.io/gh/UBESP-DCTV/elicitator/branch/master/graph/badge.svg?token=D2miWGCuKh)](https://codecov.io/gh/UBESP-DCTV/elicitator)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/elicitator)](https://CRAN.R-project.org/package=elicitator)
 <!-- badges: end -->
