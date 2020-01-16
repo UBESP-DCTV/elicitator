@@ -1,3 +1,5 @@
+* Fix AppVeyor setup: older version were called with minor version 
+  only, and not complete with pacth reference.
 * Added download for the pooled plot
 * Bugfix: `dplyr::ungroup()`ed output from `retreived =_options()`
 
