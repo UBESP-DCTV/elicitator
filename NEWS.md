@@ -1,3 +1,5 @@
+# elicitator 0.1.2
+
 * Fix AppVeyor setup: older version were called with minor version 
   only, and not complete with pacth reference.
 * Added download for the pooled plot
