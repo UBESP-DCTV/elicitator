@@ -1,6 +1,6 @@
 usr <- "user_a"
 psw <- Sys.getenv("USR_PSW")
-vals <- 5:1
+vals <- 1:5
 
 test_that("store_expert_vals return the correct class", {
     skip_on_ci()
@@ -11,6 +11,14 @@ test_that("store_expert_vals return the correct class", {
     expect_is(sev, "logical")
     expect_is(attr(sev, "time"), "POSIXct")
     expect_length(attr(sev, "time"), 1)
+})
+
+
+test_that("store_expert_vals in ascending order", {
+    skip_on_ci()
+    skip_on_cran()
+
+    expect_error(store_expert_vals(usr, psw, 5:1))
 })
 
 
